@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 class Stuent(object):
     __slots__('name',)# 用tuple定义允许绑定的属性名称，不是name就会报错
 s = Student()         # 但是子类没有限制
@@ -18,3 +18,33 @@ aa.name = 'dewng'
 s1.name
 aa.name
 
+#疑问
+from types import MethodType
+def set_age(self,age):
+    self.age = age
+
+	
+class Stu(object):
+    pass
+
+Stu.set_age = MethodType(set_age,Stu)
+A = Stu()
+B = Stu()
+A.set_age(10)
+B.set_age(15)
+print(A.age,B.age)#输出都为15
+
+
+
+class student(object):
+	def set_age(self,age):
+		self.age = age
+A = student()
+B = student()
+A.set_age(10)
+B.set_age(15)
+print(A.set_age,B.set_age)#输出为10 15
+#MethodType不适合用于给类绑定方法，它是给实例绑定方法的
+#当使用MethodType给类绑定方法时，方法是指定到类本身的
+#换而言之，绑定的方法成为了类本身的一个属性，会影响到整个类
+#类中的所有元素都会受到影响，获得此属性（包括之后加入此类的）。
