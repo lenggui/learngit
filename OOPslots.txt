@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+class Stuent(object):
+    __slots__('name',)# 用tuple定义允许绑定的属性名称，不是name就会报错
+s = Student()         # 但是子类没有限制
+s.name = 'gui'
+Student.name = 'deng'
+
+s.name
+Student.name #类属性不能用来设置定义在slots中的实例变量的默认值
+            #，否则，类属性的值将覆盖这个实例变量值。
+
+class aa(object):
+    pass
+
+s1 = aa()
+s1.name = 'gui'
+aa.name = 'dewng'
+s1.name
+aa.name
+
