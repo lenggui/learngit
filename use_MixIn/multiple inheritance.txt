@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+class Animal(object):
+    pass
+class Mammal(Animal):
+    pass
+class Bird(Animal):
+    pass
+class Runable(object):
+    def run(self):
+        print('running')
+class Flyable(object):
+    def run(self):
+        print('flying')
+
+class Dog(Mammal,Runable):
+    pass
+class Bat(Runable,Flyable):#Mammal替换成Animal也可以，Flyable替换成Bird也可以
+    pass        #但是Bird要有run()属性,当同时有Runable和Flyable类且有run（）却只会输出第一个的run（）属性
+class Parrot(Bird,Flyable):
+    pass
+class Ostrich(Bird,Runable):
+    pass
+s = Bat()
+s.run()
+s.run()
