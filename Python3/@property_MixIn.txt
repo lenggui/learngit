@@ -1,0 +1,28 @@
+# -*- coding:utf-8 -*-
+class Student(object):
+    @property
+    def socre(self):
+        return self._socre
+    @socre.setter
+    def socre(self,value):
+        if 100 >= value and value >= 90:
+            print('A')
+        elif 90 > value >= 80:
+            print('B')
+        elif 80 > value >= 0:
+            print('Fail')
+        elif value > 100 or value < 0:
+            print('Error,Please enter 0`100')
+        self._socre = value
+
+class Name(object):
+    def stu_name(self,nsme):
+        self.name = name
+        return stu_name
+class My_name(Name,Student):
+    pass
+
+s = My_name()
+s.stu_name = 'Mecial'
+s.socre = 78
+print('name:'+ s.stu_name,'Socre' + str(s.socre))
