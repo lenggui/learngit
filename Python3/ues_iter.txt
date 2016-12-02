@@ -1,0 +1,82 @@
+# -*- coding: utf-8 -*-
+
+# __str__
+class Student(object):
+    def __init__(self,name):
+        self.name = name
+    def __str__(self):
+        return 'Student object (name: %s)' % self.name
+    __repr__ = __str__
+print(Student('Gui'))
+s = Student('gui')  # 不用print打印出的还是和以前一样,但加上__repr__=__str__就解决了
+s                # __str__()返回用户看到的字符串，而__repr__()返回程序开发者看到的字符串，
+                 #也就是说，__repr__()是为调试服务的。
+
+
+# __iter__ 
+class Fib(object):
+    def __init__(self):
+        self.a, self.b = 0, 1 #初始化两格计数器a，b
+    def __iter__(self):
+         return self #实例本身就是迭代对象，故返回自己
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b #计算一个值
+        if self.a > 100000: #退出循环条件
+            raise StopIteration();
+        return self.a #返回一个值
+    
+
+#for n in Fib():  #Fib（）不是list,不能切片
+#    print(n)
+
+# __getitem__   #Fib（）为list,可进行简单切片
+class Fib(object):
+    def __getitem__(self, n): 
+        a, b = 1, 1
+        for x in range(n):
+            a, b = b, a + b
+        return a
+f = Fib()
+f[0]
+f[2]
+f[:8]  #不能实现，出现错误
+
+
+# 判断__getitem__ 传入的参数是int，还是一个切片对象slice
+class Fib(object):
+    def __getitem__(self, n):
+        if isinstance(n, int): # n是索引
+            a, b = 1, 1
+            for x in range(n):
+                a, b = b, a + b
+            return a
+        
+        if isinstance(n, slice): #n是切片
+            start = n.start
+            stop = n.stop
+            if start is None:
+                start = 0
+            a, b = 1, 1
+            L = []
+            for x in range(stop):
+                if x >= start:
+                    L.append(a)
+                a, b = b, a + b
+            return L
+f = Fib()
+f[0:5]
+f[:10]
+f[:10:2]        #不能实现，出现错误
+
+
+# __call__  # 直接对实例进行调用
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+    def __call__(self):
+        print('My name is %s.' % self.name)
+
+
+s = Student('Gui')
+s()   #self 参数不需要传入
+    
